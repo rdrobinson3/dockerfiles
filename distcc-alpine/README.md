@@ -23,3 +23,11 @@ export PATH="/usr/lib/distcc/bin:/usr/lib/distcc:$PATH" # path to distcc's binar
 ```
 make ...
 ```
+
+## Install as systemd service (with autostart)
+
+```
+curl -o /etc/systemd/system/docker-distcc.service https://raw.githubusercontent.com/TheDrHax/dockerfiles/master/distcc-alpine/docker-distcc.service
+systemctl enable docker-distcc.service
+systemctl start docker-distcc.service
+```
