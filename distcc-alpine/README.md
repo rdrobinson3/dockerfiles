@@ -1,26 +1,25 @@
-# Distcc
+# distcc-alpine
 
-Lightweight alpine-based distcc server.
+Lightweight alpine-based distcc server with gcc and g++ included.
 
-## Included tools
+## Usage
 
-* distcc daemon
-* gcc (cc)
-* g++ (cpp)
+### Start the distcc daemon
 
-## Example
-
-* Start distcc daemon
 ```
 docker run -it --rm -p 3632:3632 thedrhax/distcc-alpine:latest
 ```
 
-* Use distcc client to distribute the compilation process
+### Configure the distcc client
+
 ```
 apt-get install distcc
-
 export DISTCC_HOSTS="localhost/threads container_address/threads" # replace 'threads' with the number of CPUs on this node
 export PATH="/usr/lib/distcc/bin:/usr/lib/distcc:$PATH" # path to distcc's binaries changes between distributions
+```
 
+### Distribute the compilation process
+
+```
 make ...
 ```
