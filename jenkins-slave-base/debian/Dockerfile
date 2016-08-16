@@ -1,4 +1,4 @@
-FROM java:8
+FROM java:8-jdk
 
 MAINTAINER Dmitry Karikh <the.dr.hax@gmail.com>
 

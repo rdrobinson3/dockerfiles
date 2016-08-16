@@ -1,4 +1,4 @@
-FROM java:8-alpine
+FROM java:openjdk-8-jdk-alpine
 
 MAINTAINER Dmitry Karikh <the.dr.hax@gmail.com>
 
