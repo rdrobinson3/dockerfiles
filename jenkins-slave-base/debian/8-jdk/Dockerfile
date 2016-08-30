@@ -13,13 +13,9 @@ ENV JENKINS_MASTER_USERNAME="jenkins" \
     JENKINS_SLAVE_LABELS=""
 
 # Install Jenkins slave (swarm)
-ENV SWARM_CLIENT_URL="http://maven.jenkins-ci.org/content/repositories/releases"\
-"/org/jenkins-ci/plugins/swarm-client/2.0/swarm-client-2.0-jar-with-dependencies.jar"
+ADD swarm.jar /
 
-RUN mkdir -p $JENKINS_SLAVE_ROOT \
- && curl -Lo $JENKINS_SLAVE_ROOT/swarm.jar $SWARM_CLIENT_URL
-
-ENTRYPOINT java -jar $JENKINS_SLAVE_ROOT/swarm.jar \
+ENTRYPOINT java -jar /swarm.jar \
                 -disableClientsUniqueId \
                 -username $JENKINS_MASTER_USERNAME \
                 -password $JENKINS_MASTER_PASSWORD \
