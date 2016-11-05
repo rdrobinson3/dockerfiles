@@ -19,5 +19,5 @@ RUN cd $ANDROID_HOME/.. \
 
 RUN echo y | $ANDROID_HOME/tools/android update sdk --filter tools --no-ui --force -a \
  && echo y | $ANDROID_HOME/tools/android update sdk --filter platform-tools --no-ui --force -a \
- && echo y | $ANDROID_HOME/tools/android update sdk --filter build-tools-24.0.2 --no-ui --force -a \
- && echo y | $ANDROID_HOME/tools/android update sdk --filter android-24 --no-ui --force -a
+ && echo y | $ANDROID_HOME/tools/android update sdk --filter build-tools-25.0.0 --no-ui --force -a \
+ && echo y | $ANDROID_HOME/tools/android update sdk --filter android-25 --no-ui --force -a
