@@ -1,23 +1,27 @@
-FROM thedrhax/jenkins-slave-base:latest
+FROM thedrhax/android-sdk:25
 
 MAINTAINER Dmitry Karikh <the.dr.hax@gmail.com>
 
-# Install Ant, Git, etc.
-RUN dpkg --add-architecture i386 \
- && apt-get update \
- && apt-get install -y ant git libncurses5:i386 libstdc++6:i386 zlib1g:i386 \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists /var/cache/apt
+# Slave settings
+ENV JENKINS_MASTER_USERNAME="jenkins" \
+    JENKINS_MASTER_PASSWORD="jenkins" \
+    JENKINS_MASTER_URL="http://jenkins:8080/" \
+    JENKINS_SLAVE_MODE="exclusive" \
+    JENKINS_SLAVE_NAME="swarm-$RANDOM" \
+    JENKINS_SLAVE_ROOT="/opt/jenkins-slave" \
+    JENKINS_SLAVE_WORKERS="1" \
+    JENKINS_SLAVE_LABELS=""
 
-# Install Android SDK
-ENV ANDROID_HOME="/opt/android-sdk-linux" \
-    PATH="${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools"
+# Install Jenkins slave (swarm)
+ADD swarm.jar /
 
-RUN cd $ANDROID_HOME/.. \
- && curl -o sdk.tgz https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz \
- && tar -xzvf sdk.tgz && rm sdk.tgz
-
-RUN echo y | $ANDROID_HOME/tools/android update sdk --filter tools --no-ui --force -a \
- && echo y | $ANDROID_HOME/tools/android update sdk --filter platform-tools --no-ui --force -a \
- && echo y | $ANDROID_HOME/tools/android update sdk --filter build-tools-25.0.0 --no-ui --force -a \
- && echo y | $ANDROID_HOME/tools/android update sdk --filter android-25 --no-ui --force -a
+ENTRYPOINT java -jar /swarm.jar \
+                -disableClientsUniqueId \
+                -username $JENKINS_MASTER_USERNAME \
+                -password $JENKINS_MASTER_PASSWORD \
+                -mode $JENKINS_SLAVE_MODE \
+                -name $JENKINS_SLAVE_NAME \
+                -executors $JENKINS_SLAVE_WORKERS \
+                -master $JENKINS_MASTER_URL \
+                -fsroot $JENKINS_SLAVE_ROOT \
+                -labels "$JENKINS_SLAVE_LABELS swarm"
