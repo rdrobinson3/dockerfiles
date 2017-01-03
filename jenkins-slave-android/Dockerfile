@@ -1,4 +1,4 @@
-FROM thedrhax/android-sdk:25
+FROM thedrhax/android-sdk:latest
 
 MAINTAINER Dmitry Karikh <the.dr.hax@gmail.com>
 
