@@ -1,8 +1,8 @@
-This image expands [frekele/gradle](https://hub.docker.com/r/frekele/gradle/) with latest Android SDK.
+This image contains the latest versions of Android SDK and Gradle.
 
 # Example
 
-* `docker run -it thedrhax/android-sdk:25 bash`
+* `docker run -it thedrhax/android-sdk:last bash`
 
 # Problems and solutions
 
@@ -12,4 +12,4 @@ Add this line to `local.properties`: `sdk.dir=/opt/android-sdk-linux`
 
 ## Persistent cache
 
-Add this parameter to `docker run` command: `-v /your/path/here:/root/.gradle`
+Add this parameter to `docker run` command: `-v /your/path/here:/home/user/.gradle`

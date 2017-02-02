@@ -22,6 +22,6 @@ docker run -it --rm --name slave -e JENKINS_SLAVE_NAME="test" thedrhax/jenkins-s
 
 * `-e JENKINS_SLAVE_MODE=exclusive` — `exclusive` or `normal` are allowed. [[more info]](https://wiki.jenkins-ci.org/display/JENKINS/Swarm+Plugin)
 * `-e JENKINS_SLAVE_NAME=swarm-$RANDOM` — name of slave displayed in Jenkins
-* `-e JENKINS_SLAVE_ROOT=/opt/jenkins-slave` — working directory of this slave
+* `-e JENKINS_SLAVE_ROOT=/home/user/jenkins-slave` — working directory of this slave
 * `-e JENKINS_SLAVE_WORKERS=1` — number of simultaneously running tasks
 * `-e JENKINS_SLAVE_LABELS` — slave labels which can be used in Jenkins

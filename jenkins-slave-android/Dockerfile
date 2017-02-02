@@ -8,7 +8,7 @@ ENV JENKINS_MASTER_USERNAME="jenkins" \
     JENKINS_MASTER_URL="http://jenkins:8080/" \
     JENKINS_SLAVE_MODE="exclusive" \
     JENKINS_SLAVE_NAME="swarm-$RANDOM" \
-    JENKINS_SLAVE_ROOT="/opt/jenkins-slave" \
+    JENKINS_SLAVE_ROOT="/home/user/jenkins-slave" \
     JENKINS_SLAVE_WORKERS="1" \
     JENKINS_SLAVE_LABELS=""
 
