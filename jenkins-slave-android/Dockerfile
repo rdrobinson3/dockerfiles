@@ -10,7 +10,7 @@ RUN apt-get update \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists /var/cache/apt
 
-USER jenkins
+USER user
 
 # Slave settings
 ENV JENKINS_MASTER_USERNAME="jenkins" \
