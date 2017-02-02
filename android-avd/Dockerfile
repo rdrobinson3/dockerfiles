@@ -24,7 +24,7 @@ ENV ABI="x86" \
 
 RUN echo y | $ANDROID_HOME/tools/android update sdk --filter ${TARGET} --no-ui --force -a \
  && echo y | $ANDROID_HOME/tools/android update sdk --filter sys-img-${ABI}-${TARGET} --no-ui --force -a
- && echo no | $ANDROID_HOME/tools/android create avd -t ${TARGET} -n ${NAME} --abi ${ABI}
+ && echo no | $ANDROID_HOME/tools/android create avd -t ${TARGET} -n ${NAME} --abi ${ABI} \
  && mkdir -p $ANDROID_HOME/tools/keymaps \
  && touch $ANDROID_HOME/tools/keymaps/en-us
 
