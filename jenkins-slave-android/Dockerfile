@@ -2,6 +2,12 @@ FROM thedrhax/android-sdk:latest
 
 MAINTAINER Dmitry Karikh <the.dr.hax@gmail.com>
 
+# Install some useful but optional packages
+RUN apt-get update \
+ && apt-get install -y socat \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists /var/cache/apt
+
 # Slave settings
 ENV JENKINS_MASTER_USERNAME="jenkins" \
     JENKINS_MASTER_PASSWORD="jenkins" \
