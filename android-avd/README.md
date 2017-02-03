@@ -2,8 +2,38 @@ This image contains the latest version of Android SDK with configured AVD.
 
 # Example
 
-* `docker run -it --privileged -p 5554:5554 -p 5555:5555 thedrhax/android-avd:latest bash`
-* `adb connect 127.0.0.1`
+```bash
+docker run -it --privileged -p 5554:5554 -p 5555:5555 thedrhax/android-avd:latest
+```
+
+The `--privileged` flag is required to access the `/dev/kvm` which is required to enable CPU hardware acceleration.
+You may also need to activate `kvm` kernel module on your host machine: `modprobe kvm`, or even install it first.
+
+## Connecting to AVD from other containers/computers
+
+* `adb connect 127.0.0.1` or `adb connect IP_OF_AVD_CONTAINER`
 * `adb devices` or `adb shell`
 
-`--privileged` is required to access the /dev/kvm which is required to enable CPU hardware acceleration.
+## AVD detection in Gradle, Android Studio, etc.
+
+To enable autodection of this AVD, you will need to install `socat` first: `apt-get install socat`. Then just run this command to connect your local 5555 port to the AVD container:
+
+```
+socat tcp-listen:5555,bind=127.0.0.1,fork tcp:IP_OF_AVD_CONTAINER:5555
+```
+
+This is a reversed solution used earlier to publish AVD's ports to the public. While socat is running, your ADB server will be able to detect the AVD automatically (just like any USB Android device).
+
+### Automatic instrumentation testing example:
+
+```bash
+# Start socat in the background and remember PID of this process
+socat tcp-listen:5555,bind=127.0.0.1,fork tcp:IP_OF_AVD_CONTAINER:5555 &
+PID=$!
+
+# Run automated instrumentation tests with Gradle
+gradle connectedAndroidTest
+
+# Kill socat process
+kill $PID
+```
